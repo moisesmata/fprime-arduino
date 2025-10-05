@@ -3,15 +3,6 @@
 #
 # Arduino Nicla Vision support.
 #
-# NOTE: This toolchain file is currently NON-FUNCTIONAL due to a limitation
-# in the arduino-cli-cmake-wrapper (v0.2.0a1). Mbed-based Arduino boards
-# (like Nicla Vision) use @file syntax for compiler flags, which causes the
-# wrapper to fail when parsing compilation output at stage 3 (COMPILATION).
-#
-# Error: "MissingStageException: Failed to find any output for build stage: 3"
-#
-# This will require an update to arduino-cli-cmake-wrapper to properly handle
-# Mbed board compilation patterns before this toolchain can be used.
 ####
 
 cmake_minimum_required(VERSION 3.26)
@@ -25,9 +16,6 @@ set(CMAKE_CROSSCOMPILING 1)
 
 set(FPRIME_PLATFORM "ArduinoFw")
 set(FPRIME_USE_BAREMETAL_SCHEDULER ON)
-
-# Workaround for Mbed-based boards: Set build properties to handle @ file syntax
-set(ARDUINO_BUILD_PROPERTIES "compiler.mbed.cxx.flags=none")
 
 # Prevent test program compiling
 set(CMAKE_C_COMPILER_WORKS 1)
@@ -44,4 +32,3 @@ add_compile_options(
 
 # Run the base Arduino setup
 include("${CMAKE_CURRENT_LIST_DIR}/support/arduino-support.cmake")
-
